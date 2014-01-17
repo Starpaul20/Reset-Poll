@@ -1,0 +1,9 @@
+1.1.1
+- Optimization and general plugin updating
+
+1.1
+- Added a confirmation dialog when you click the reset link
+- Bug: Fixed moderator permission check
+
+1.0
+- Initial release
