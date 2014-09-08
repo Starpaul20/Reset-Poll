@@ -18,9 +18,12 @@ $plugins->add_hook("showthread_poll_results", "resetpoll_link");
 // The information that shows up on the plugin manager
 function resetpoll_info()
 {
+	global $lang;
+	$lang->load("resetpoll", true);
+
 	return array(
-		"name"				=> "Reset Poll",
-		"description"		=> "Allows moderators and administrators to reset a poll.",
+		"name"				=> $lang->resetpoll_info_name,
+		"description"		=> $lang->resetpoll_info_desc,
 		"website"			=> "http://galaxiesrealm.com/index.php",
 		"author"			=> "Starpaul20",
 		"authorsite"		=> "http://galaxiesrealm.com/index.php",
