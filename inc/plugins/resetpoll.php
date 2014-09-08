@@ -94,7 +94,7 @@ function resetpoll_run()
 
 		$thread = get_thread($poll['tid']);
 
-		if(!is_moderator($thread['fid'], "caneditposts"))
+		if(!is_moderator($thread['fid'], "canmanagepolls"))
 		{
 			error_no_permission();
 		}
@@ -137,7 +137,7 @@ function resetpoll_link()
 	global $db, $mybb, $lang, $thread, $pollbox, $poll, $templates;
 	$lang->load("resetpoll");
 
-	if(is_moderator($thread['fid'], "caneditposts") && $poll['numvotes'] > 0)
+	if(is_moderator($thread['fid'], "canmanagepolls") && $poll['numvotes'] > 0)
 	{
 		eval("\$reset_poll = \"".$templates->get("showthread_poll_resetpoll")."\";");
 		$pollbox = str_replace("<!-- resetpoll -->", $reset_poll, $pollbox);
