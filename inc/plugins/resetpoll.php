@@ -10,6 +10,17 @@ if(!defined("IN_MYBB"))
 	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
+// Neat trick for caching our custom template(s)
+if(my_strpos($_SERVER['PHP_SELF'], 'showthread.php'))
+{
+	global $templatelist;
+	if(isset($templatelist))
+	{
+		$templatelist .= ',';
+	}
+	$templatelist .= 'showthread_poll_resetpoll';
+}
+
 // Tell MyBB when to run the hooks
 $plugins->add_hook("global_end", "resetpoll_run");
 $plugins->add_hook("showthread_poll", "resetpoll_link");
@@ -35,6 +46,17 @@ function resetpoll_info()
 // This function runs when the plugin is activated.
 function resetpoll_activate()
 {
+	global $db;
+
+	$insert_array = array(
+		'title'		=> 'showthread_poll_resetpoll',
+		'template'	=> $db->escape_string(' | <a href="polls.php?action=do_reset&amp;pid={$thread[\'poll\']}&amp;my_post_key={$mybb->post_code}" onclick="if(confirm(&quot;{$lang->reset_poll_confirm}&quot;)) window.location=this.href.replace(\'action=do_reset\',\'action=do_reset\'); return false;">{$lang->reset_poll}</a>'),
+		'sid'		=> '-1',
+		'version'	=> '',
+		'dateline'	=> TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	include MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets("showthread_poll", "#".preg_quote('{$edit_poll}')."#i", '{$edit_poll}<!-- resetpoll -->');
 	find_replace_templatesets("showthread_poll_results", "#".preg_quote('{$edit_poll}')."#i", '{$edit_poll}<!-- resetpoll -->');
@@ -43,6 +65,9 @@ function resetpoll_activate()
 // This function runs when the plugin is deactivated.
 function resetpoll_deactivate()
 {
+	global $db;
+	$db->delete_query("templates", "title IN('showthread_poll_resetpoll')");
+
 	include MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets("showthread_poll", "#".preg_quote('<!-- resetpoll -->')."#i", '', 0);
 	find_replace_templatesets("showthread_poll_results", "#".preg_quote('<!-- resetpoll -->')."#i", '', 0);
@@ -109,12 +134,12 @@ function resetpoll_run()
 // Show link to reset poll on show thread page
 function resetpoll_link()
 {
-	global $db, $mybb, $lang, $thread, $pollbox, $poll;
+	global $db, $mybb, $lang, $thread, $pollbox, $poll, $templates;
 	$lang->load("resetpoll");
 
 	if(is_moderator($thread['fid'], "caneditposts") && $poll['numvotes'] > 0)
 	{
-		$reset_poll = " | <a href=\"polls.php?action=do_reset&amp;pid={$thread['poll']}&amp;my_post_key={$mybb->post_code}\" onclick=\"if(confirm(&quot;{$lang->reset_poll_confirm}&quot;)) window.location=this.href.replace('action=do_reset','action=do_reset'); return false;\">{$lang->reset_poll}</a>";
+		eval("\$reset_poll = \"".$templates->get("showthread_poll_resetpoll")."\";");
 		$pollbox = str_replace("<!-- resetpoll -->", $reset_poll, $pollbox);
 	}
 }
