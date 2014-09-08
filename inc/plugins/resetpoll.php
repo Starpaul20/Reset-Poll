@@ -24,9 +24,8 @@ function resetpoll_info()
 		"website"			=> "http://galaxiesrealm.com/index.php",
 		"author"			=> "Starpaul20",
 		"authorsite"		=> "http://galaxiesrealm.com/index.php",
-		"version"			=> "1.1.1",
-		"guid"				=> "43bfc97eb3b89db97f52b2ddeb739bf7",
-		"compatibility"		=> "16*"
+		"version"			=> "1.0",
+		"compatibility"		=> "18*"
 	);
 }
 

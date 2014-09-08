@@ -1,6 +1,6 @@
 ## INFORMATION ##
 
-Reset Poll (1.1.1) for MyBB 1.6
+Reset Poll (1.0) for MyBB 1.8
 Created by: Starpaul20
 Copyright: ©2010
 License: GPL
@@ -10,6 +10,8 @@ Allows moderators and administrators to delete all votes in a poll and reset tha
 To reset a poll, just click the Reset poll link next to the Edit poll link (the link will only appear if the poll has at least one vote and if the person is a Moderator/Administrator). Whenever a poll is reset, the action is logged in the Moderator Log.
 
 This plugin offers full language support.
+
+The 'oldrelease' branch contains the 1.6 version of the plugin.
 
 
 ## INSTALLATION ##
