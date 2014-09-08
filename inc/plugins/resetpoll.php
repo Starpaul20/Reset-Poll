@@ -22,7 +22,7 @@ if(my_strpos($_SERVER['PHP_SELF'], 'showthread.php'))
 }
 
 // Tell MyBB when to run the hooks
-$plugins->add_hook("global_end", "resetpoll_run");
+$plugins->add_hook("polls_start", "resetpoll_run");
 $plugins->add_hook("showthread_poll", "resetpoll_link");
 $plugins->add_hook("showthread_poll_results", "resetpoll_link");
 
@@ -76,10 +76,10 @@ function resetpoll_deactivate()
 // Reset a poll
 function resetpoll_run()
 {
-	global $db, $mybb, $lang, $headerinclude, $theme;
+	global $db, $mybb, $lang;
 	$lang->load("resetpoll");
 
-	if(THIS_SCRIPT == "polls.php" && $mybb->input['action'] == "do_reset")
+	if($mybb->input['action'] == "do_reset")
 	{
 		// Verify incoming POST request
 		verify_post_check($mybb->input['my_post_key']);
