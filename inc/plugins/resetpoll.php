@@ -136,7 +136,7 @@ function resetpoll_run()
 // Show link to reset poll on show thread page
 function resetpoll_link()
 {
-	global $db, $mybb, $lang, $thread, $pollbox, $poll, $templates;
+	global $mybb, $lang, $thread, $pollbox, $poll, $templates;
 	$lang->load("resetpoll");
 
 	if(is_moderator($thread['fid'], "canmanagepolls") && $poll['numvotes'] > 0)
