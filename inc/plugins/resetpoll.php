@@ -83,9 +83,10 @@ function resetpoll_run()
 	if($mybb->input['action'] == "do_reset")
 	{
 		// Verify incoming POST request
-		verify_post_check($mybb->input['my_post_key']);
+		verify_post_check($mybb->get_input('my_post_key'));
 
-		$query = $db->simple_select("polls", "*", "pid='".intval($mybb->input['pid'])."'");
+		$pid = $mybb->get_input('pid', MyBB::INPUT_INT);
+		$query = $db->simple_select("polls", "*", "pid='{$pid}'");
 		$poll = $db->fetch_array($query);
 
 		if(!$poll['pid'])
