@@ -1,3 +1,7 @@
+1.0.1 (March 13th, 2015)
+- Changed $mybb->input to $mybb->get_input
+- Dropped useless global
+
 1.0 (September 8th, 2014)
 - Updated plugin to work with MyBB 1.8
 
