@@ -145,5 +145,3 @@ function resetpoll_link()
 		$pollbox = str_replace("<!-- resetpoll -->", $reset_poll, $pollbox);
 	}
 }
-
-?>
