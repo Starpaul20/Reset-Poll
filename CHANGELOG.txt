@@ -1,3 +1,10 @@
+1.1 (June 28th, 2021)
+- Removed PHP closing tags
+- Use THIS_SCRIPT for template caching
+- Adding License file
+- Added check to see if THIS_SCRIPT is defined
+- Use require_once for template updates
+
 1.0.1 (March 13th, 2015)
 - Changed $mybb->input to $mybb->get_input
 - Dropped useless global
