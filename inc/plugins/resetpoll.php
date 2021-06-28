@@ -61,7 +61,7 @@ function resetpoll_activate()
 	);
 	$db->insert_query("templates", $insert_array);
 
-	include MYBB_ROOT."/inc/adminfunctions_templates.php";
+	require_once MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets("showthread_poll", "#".preg_quote('{$edit_poll}')."#i", '{$edit_poll}<!-- resetpoll -->');
 	find_replace_templatesets("showthread_poll_results", "#".preg_quote('{$edit_poll}')."#i", '{$edit_poll}<!-- resetpoll -->');
 }
@@ -72,7 +72,7 @@ function resetpoll_deactivate()
 	global $db;
 	$db->delete_query("templates", "title IN('showthread_poll_resetpoll')");
 
-	include MYBB_ROOT."/inc/adminfunctions_templates.php";
+	require_once MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets("showthread_poll", "#".preg_quote('<!-- resetpoll -->')."#i", '', 0);
 	find_replace_templatesets("showthread_poll_results", "#".preg_quote('<!-- resetpoll -->')."#i", '', 0);
 }
